@@ -3,8 +3,6 @@ package Tubes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import sebelasokt.bank;
-
 public class kel7 {
 
     static Scanner inp = new Scanner(System.in);
@@ -21,22 +19,20 @@ public class kel7 {
 
     static void runthis() {
         // Adding sample users
-        String pil;
+        int pil;
         do {
-
-            System.out.println("A.\tLogin");
-            System.out.println("B.\tregister");
-            System.out.println("X.\tKeluar");
-            pil = inp.nextLine();
+            System.out.println("---------------------");
+            System.out.println("1.Login");
+            System.out.println("2.Register");
+            System.out.println("3.Keluar");
+            pil = inp.nextInt();
 
             switch (pil) {
-                case "a":
-                case "A":
+                case 1:
                     login();
                     break;
 
-                case "b":
-                case "B":
+                case 2:
                     registrasi();
                     break;
 
@@ -44,17 +40,16 @@ public class kel7 {
                     break;
             }
 
-        } while (!pil.equalsIgnoreCase("X"));
+        } while (pil < 3);
 
     }
 
     static void login() {
-        System.out.print("Masukkan username: ");
-        String USname = inp.nextLine();
-        System.out.print("Masukkan Password: ");
-        String Pass = inp.nextLine();
-
-        
+        System.out.println("---------------------");
+        System.out.print("Masukkan Username : ");
+        String USname = inp.next();
+        System.out.print("Masukkan Password : ");
+        String Pass = inp.next();
 
         if ((USname.equals(nameadmin)) && (Pass.equals(pwadmin))) {
             menuAdmin();
@@ -62,7 +57,7 @@ public class kel7 {
         } else {
             boolean temp = true;
             for (User cari : users) {
-                if (cari.getusername().equals(USname)) {
+                if (cari.getusername().equals(USname) && cari.getpassword().equals(Pass)) {
                     menuCustomer();
                     temp = false;
                     break;
@@ -75,81 +70,169 @@ public class kel7 {
         }
     }
 
-    static void registrasi(){
-        System.out.println("masukkan username: ");
-        String USname = inp.nextLine();
-        System.out.println("masukkan password: ");
-        String Pass = inp.nextLine();
+    static void registrasi() {
+        System.out.println("---------------------");
+        System.out.print("Masukkan Username : ");
+        String USname = inp.next();
+        System.out.print("Masukkan Password : ");
+        String Pass = inp.next();
 
-        boolean temp= true;
+        boolean temp = true;
 
         for (User cari : users) {
-                if ((cari.getusername().equals(USname))||nameadmin.equals(USname)) {
-                   System.out.println("username anda telah digunakan");
-                    temp = false;
-                    break;
-                }
+            if ((cari.getusername().equals(USname)) || nameadmin.equals(USname)) {
+                System.out.println("username anda telah digunakan");
+                temp = false;
+                break;
             }
+        }
         if (temp) {
-            User users = new User(USname, Pass);
+            String nick = USname, Pwrd = Pass;
+            users.add(new User(nick, Pwrd));
+            // User users = new User(USname, Pass);
             // users.add(new User(USname, Pass));
         }
 
     }
 
     static void menuAdmin() {
+        System.out.println("---------------------");
         System.out.println("Welcome, Admin!");
-        System.out.println("Tambah Stock");
-        System.out.println("view Stock");
-        System.out.println("Ganti Password");
-        System.out.println("View Username Terdaftar");
-        System.out.println("Report Penjualan");
-        System.out.println("Logout");
+        System.out.println("1.Tambah Stock");
+        System.out.println("2.view Stock");
+        System.out.println("3.Ganti Password");
+        System.out.println("4.View Username Terdaftar");
+        System.out.println("5.Report Penjualan");
+        System.out.println("6.Logout");
         System.out.print("Pilihan: ");
         String Pil = inp.nextLine();
 
         switch (Pil) {
-            case value:
-                
-                break;
-        
-            default:
-                break;
+            // case :
+
+            // break;
+
+            // default:
+            // break;
         }
-//add stock
-// -view stok
-// -ganti password
-// -view username terdaftar
-// -reporting penjualan perkategori (harga dan jumlah item)
-// -logout
-// -regist admin baru
-// // 
+        // add stock
+        // -view stok
+        // -ganti password
+        // -view username terdaftar
+        // -reporting penjualan perkategori (harga dan jumlah item)
+        // -logout
+        // -regist admin baru
+        // //
     }
 
     static void menuCustomer() {
-        System.out.println("Welcome, Customer!");
-        // Add customer-specific functionality here
+        CustomerMenus sp = new CustomerMenus();
+        // cek stok
+        // keranjang
+        // histori pembelian
+        // ganti pw
+        // logot
+        int pil;
+        do {
+            System.out.println("---------------------");
+            System.out.println("Welcome, Customer!");
+            System.out.println("1.Lihat Stock");
+            System.out.println("2.Keranjang");
+            System.out.println("3.Histori Pembelian");
+            System.out.println("4.Ganti Password");
+            System.out.println("5.Logout");
+            System.out.print("Pilihan: ");
+            pil = inp.nextInt();
+
+            switch (pil) {
+                case 1:
+                    sp.lihatStok();
+                    break;
+                case 2:
+                    sp.keranjang();
+                    break;
+                case 3:
+                    sp.histori();
+                    break;
+                case 4:
+                    sp.gantiPass();
+                    break;
+                case 5:
+                    sp.logout();
+                    break;
+                default:
+                    break;
+            }
+
+        } while (pil < 6 && pil != 5);
+    }
+}
+
+class AdminMenus {
+    public void addStock() {
+
+    }
+
+    public void viewStokAdv() {
+
+    }
+
+    public void gantiPassAdm() {
+
+    }
+
+    public void viewAllUser() {
+
+    }
+
+    public void sellReport() {
+
+    }
+
+    public void logoutadm() {
+
+    }
+}
+
+class CustomerMenus {
+    public void lihatStok() {
+
+    }
+
+    public void keranjang() {
+
+    }
+
+    public void histori() {
+
+    }
+
+    public void gantiPass() {
+
+    }
+
+    public void logout() {
+
     }
 }
 
 class User {
     String username;
     String password;
-    
 
     User(String username, String password) {
         this.username = username;
         this.password = password;
-        
+
     }
 
-    // static void setusername(username){
-    //     this.username=username;
-    // }
+    void setusername(String username) {
+        this.username = username;
+    }
 
-    // static void setpassword(password){
-    //     this.password=password;
-    // }
+    void setpassword(String password) {
+        this.password = password;
+    }
 
     String getusername() {
         return username;
@@ -159,10 +242,10 @@ class User {
         return password;
     }
 
-   
 }
 
 class Item {
+    ArrayList<Item> items;
     String nama;
     String kategori;
     double harga;
@@ -174,6 +257,31 @@ class Item {
         this.harga = harga;
         this.stok = stok;
     }
+
+    void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
+
+    void setHarga(double harga) {
+        this.harga = harga;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public double getHarga() {
+        return harga;
+    }
+
 }
 
 class Transaksi {
