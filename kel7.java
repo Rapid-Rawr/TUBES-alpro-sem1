@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class kel7 {
 
+    static kel7 rawr = new kel7();
     static Scanner inp = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
     static ArrayList<Item> items = new ArrayList<>();
@@ -19,6 +20,16 @@ public class kel7 {
 
     static void runthis() {
         // Adding sample users
+
+        // declare menu stok awal
+        items.add(monitor);
+        items.add(mouse);
+        items.add(speaker);
+        items.add(headphone);
+        items.add(keyboard);
+        items.add(webcam);
+        items.add(cpu);
+
         int pil;
         do {
             System.out.println("---------------------");
@@ -58,7 +69,7 @@ public class kel7 {
             boolean temp = true;
             for (User cari : users) {
                 if (cari.getusername().equals(USname) && cari.getpassword().equals(Pass)) {
-                    menuCustomer();
+                    rawr.menuCustomer();
                     temp = false;
                     break;
                 }
@@ -125,8 +136,7 @@ public class kel7 {
         // //
     }
 
-    static void menuCustomer() {
-        CustomerMenus sp = new CustomerMenus();
+    void menuCustomer() {
         // cek stok
         // keranjang
         // histori pembelian
@@ -146,25 +156,45 @@ public class kel7 {
 
             switch (pil) {
                 case 1:
-                    sp.lihatStok();
+                    lihatStok();
                     break;
                 case 2:
-                    sp.keranjang();
+                    keranjang();
                     break;
                 case 3:
-                    sp.histori();
+                    histori();
                     break;
                 case 4:
-                    sp.gantiPass();
+                    gantiPass();
                     break;
                 case 5:
-                    sp.logout();
+                    logout();
                     break;
                 default:
                     break;
             }
 
         } while (pil < 6 && pil != 5);
+    }
+
+    public void lihatStok() {
+
+    }
+
+    public void keranjang() {
+
+    }
+
+    public void histori() {
+
+    }
+
+    public void gantiPass() {
+
+    }
+
+    public void logout() {
+
     }
 }
 
@@ -190,28 +220,6 @@ class AdminMenus {
     }
 
     public void logoutadm() {
-
-    }
-}
-
-class CustomerMenus {
-    public void lihatStok() {
-
-    }
-
-    public void keranjang() {
-
-    }
-
-    public void histori() {
-
-    }
-
-    public void gantiPass() {
-
-    }
-
-    public void logout() {
 
     }
 }
@@ -245,15 +253,15 @@ class User {
 }
 
 class Item {
-    ArrayList<Item> items;
+    // ArrayList<Item> items;
     String nama;
-    String kategori;
+    // String kategori;
     double harga;
     int stok;
 
-    Item(String nama, String kategori, double harga, int stok) {
+    Item(String nama, double harga, int stok) {
         this.nama = nama;
-        this.kategori = kategori;
+        // this.kategori = kategori;
         this.harga = harga;
         this.stok = stok;
     }
@@ -262,9 +270,9 @@ class Item {
         this.nama = nama;
     }
 
-    void setKategori(String kategori) {
-        this.kategori = kategori;
-    }
+    // void setKategori(String kategori) {
+    //     this.kategori = kategori;
+    // }
 
     void setHarga(double harga) {
         this.harga = harga;
@@ -274,9 +282,9 @@ class Item {
         return nama;
     }
 
-    public String getKategori() {
-        return kategori;
-    }
+    // public String getKategori() {
+    //     return kategori;
+    // }
 
     public double getHarga() {
         return harga;
@@ -297,3 +305,70 @@ class Transaksi {
         this.status = status;
     }
 }
+
+// punya alvian
+class Item {
+    // ... (kode yang sudah ada)
+
+    // Method untuk menambah stok barang
+    public void tambahStok(int jumlah) {
+        if (jumlah >= 0) {
+            stok += jumlah;
+            System.out.println("Stok " + nama + " ditambahkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
+        } else {
+            System.out.println("Jumlah tambahan stok harus non-negatif.");
+        }
+    }
+
+    // Method untuk mengurangkan stok barang
+    public void kurangStok(int jumlah) {
+        if (jumlah >= 0 && stok >= jumlah) {
+            stok -= jumlah;
+            System.out.println("Stok " + nama + " dikurangkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
+        } else if (jumlah < 0) {
+            System.out.println("Jumlah pengurangan stok harus non-negatif.");
+        } else {
+            System.out.println("Stok tidak mencukupi untuk pengurangan sebanyak " + jumlah + ".");
+        }
+    }
+
+    // Method untuk melihat stok barang
+    public void viewStok() {
+        System.out.println("Stok " + nama + ": " + stok);
+    }}
+    // Contoh penggunaan di dalam metode menuAdmin atau menuCustomer
+    // ...
+
+    // Membuat objek Item
+    Item barang1 = new Item("Buku", "Alat Tulis", 10.0, 50);
+
+    // Menambah stok barang
+    barang1.tambahStok(20);
+
+    // Mengurangkan stok barang
+    barang1.kurangStok(15);
+
+    // Melihat stok barang
+    barang1.viewStok();
+    // ...
+    // Menambahkan list barang yang dijual
+    Item monitor = new Item("Monitor", "Elektronik", 300.0, 30);
+    Item mouse = new Item("Mouse", "Elektronik", 20.0, 100);
+    Item speaker = new Item("Speaker", "Elektronik", 50.0, 50);
+    Item headphone = new Item("Headphone", "Elektronik", 40.0, 80);
+    Item keyboard = new Item("Keyboard", "Elektronik", 25.0, 60);
+    Item webcam = new Item("Webcam", "Elektronik", 30.0, 40);
+    Item cpu = new Item("CPU", "Elektronik", 200.0, 20);
+
+    // Contoh penggunaan
+    for(
+    Item barang:items)
+    {
+    System.out.println("Nama Barang: " + barang.nama);
+    System.out.println("Kategori: " + barang.kategori);
+    System.out.println("Harga: " + barang.harga);
+    System.out.println("Stok: " + barang.stok);
+    System.out.println("---------------");
+}
+
+// beli -> 1.mouse
