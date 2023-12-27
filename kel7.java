@@ -19,15 +19,19 @@ public class kel7 {
     }
 
     static void runthis() {
-        // Adding sample users
-
-        // declare menu stok awal
+        Item monitor = new Item("monitor", 1000.000, 5);
         items.add(monitor);
+        Item mouse = new Item("monitor", 100.000, 5);
         items.add(mouse);
+        Item speaker = new Item("monitor", 500.000, 5);
         items.add(speaker);
+        Item headphone = new Item("monitor", 300.000, 5);
         items.add(headphone);
+        Item keyboard = new Item("monitor", 400.000, 5);
         items.add(keyboard);
+        Item webcam = new Item("monitor", 200.000, 5);
         items.add(webcam);
+        Item cpu = new Item("monitor", 2000.000, 5);
         items.add(cpu);
 
         int pil;
@@ -100,8 +104,6 @@ public class kel7 {
         if (temp) {
             String nick = USname, Pwrd = Pass;
             users.add(new User(nick, Pwrd));
-            // User users = new User(USname, Pass);
-            // users.add(new User(USname, Pass));
         }
 
     }
@@ -137,16 +139,11 @@ public class kel7 {
     }
 
     void menuCustomer() {
-        // cek stok
-        // keranjang
-        // histori pembelian
-        // ganti pw
-        // logot
         int pil;
         do {
             System.out.println("---------------------");
             System.out.println("Welcome, Customer!");
-            System.out.println("1.Lihat Stock");
+            System.out.println("1.Beli Barang");
             System.out.println("2.Keranjang");
             System.out.println("3.Histori Pembelian");
             System.out.println("4.Ganti Password");
@@ -156,7 +153,7 @@ public class kel7 {
 
             switch (pil) {
                 case 1:
-                    lihatStok();
+                    beliBarang();
                     break;
                 case 2:
                     keranjang();
@@ -177,7 +174,7 @@ public class kel7 {
         } while (pil < 6 && pil != 5);
     }
 
-    public void lihatStok() {
+    public void beliBarang() {
 
     }
 
@@ -253,15 +250,12 @@ class User {
 }
 
 class Item {
-    // ArrayList<Item> items;
     String nama;
-    // String kategori;
     double harga;
     int stok;
 
     Item(String nama, double harga, int stok) {
         this.nama = nama;
-        // this.kategori = kategori;
         this.harga = harga;
         this.stok = stok;
     }
@@ -269,10 +263,6 @@ class Item {
     void setNama(String nama) {
         this.nama = nama;
     }
-
-    // void setKategori(String kategori) {
-    //     this.kategori = kategori;
-    // }
 
     void setHarga(double harga) {
         this.harga = harga;
@@ -282,12 +272,32 @@ class Item {
         return nama;
     }
 
-    // public String getKategori() {
-    //     return kategori;
-    // }
-
     public double getHarga() {
         return harga;
+    }
+
+    public void tambahStok(int jumlah) {
+        if (jumlah >= 0) {
+            stok += jumlah;
+            System.out.println("Stok " + nama + " ditambahkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
+        } else {
+            System.out.println("Jumlah tambahan stok harus non-negatif.");
+        }
+    }
+
+    public void kurangStok(int jumlah) {
+        if (jumlah >= 0 && stok >= jumlah) {
+            stok -= jumlah;
+            System.out.println("Stok " + nama + " dikurangkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
+        } else if (jumlah < 0) {
+            System.out.println("Jumlah pengurangan stok harus non-negatif.");
+        } else {
+            System.out.println("Stok tidak mencukupi untuk pengurangan sebanyak " + jumlah + ".");
+        }
+    }
+
+    public void viewStok() {
+        System.out.println("Stok " + nama + ": " + stok);
     }
 
 }
@@ -305,70 +315,3 @@ class Transaksi {
         this.status = status;
     }
 }
-
-// punya alvian
-class Item {
-    // ... (kode yang sudah ada)
-
-    // Method untuk menambah stok barang
-    public void tambahStok(int jumlah) {
-        if (jumlah >= 0) {
-            stok += jumlah;
-            System.out.println("Stok " + nama + " ditambahkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
-        } else {
-            System.out.println("Jumlah tambahan stok harus non-negatif.");
-        }
-    }
-
-    // Method untuk mengurangkan stok barang
-    public void kurangStok(int jumlah) {
-        if (jumlah >= 0 && stok >= jumlah) {
-            stok -= jumlah;
-            System.out.println("Stok " + nama + " dikurangkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
-        } else if (jumlah < 0) {
-            System.out.println("Jumlah pengurangan stok harus non-negatif.");
-        } else {
-            System.out.println("Stok tidak mencukupi untuk pengurangan sebanyak " + jumlah + ".");
-        }
-    }
-
-    // Method untuk melihat stok barang
-    public void viewStok() {
-        System.out.println("Stok " + nama + ": " + stok);
-    }}
-    // Contoh penggunaan di dalam metode menuAdmin atau menuCustomer
-    // ...
-
-    // Membuat objek Item
-    Item barang1 = new Item("Buku", "Alat Tulis", 10.0, 50);
-
-    // Menambah stok barang
-    barang1.tambahStok(20);
-
-    // Mengurangkan stok barang
-    barang1.kurangStok(15);
-
-    // Melihat stok barang
-    barang1.viewStok();
-    // ...
-    // Menambahkan list barang yang dijual
-    Item monitor = new Item("Monitor", "Elektronik", 300.0, 30);
-    Item mouse = new Item("Mouse", "Elektronik", 20.0, 100);
-    Item speaker = new Item("Speaker", "Elektronik", 50.0, 50);
-    Item headphone = new Item("Headphone", "Elektronik", 40.0, 80);
-    Item keyboard = new Item("Keyboard", "Elektronik", 25.0, 60);
-    Item webcam = new Item("Webcam", "Elektronik", 30.0, 40);
-    Item cpu = new Item("CPU", "Elektronik", 200.0, 20);
-
-    // Contoh penggunaan
-    for(
-    Item barang:items)
-    {
-    System.out.println("Nama Barang: " + barang.nama);
-    System.out.println("Kategori: " + barang.kategori);
-    System.out.println("Harga: " + barang.harga);
-    System.out.println("Stok: " + barang.stok);
-    System.out.println("---------------");
-}
-
-// beli -> 1.mouse
