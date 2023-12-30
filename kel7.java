@@ -11,29 +11,29 @@ public class kel7 {
     static ArrayList<Item> items = new ArrayList<>();
     static ArrayList<Pembayaran> bayaran = new ArrayList<>();
     static ArrayList<Transaksi> transaksi = new ArrayList<>();
-    static String nameadmin = "ADMIN";
-    static String pwadmin = "admin123";
+    static String nameadmin = "admin";
+    static String pwadmin = "admin";
 
     public static void main(String[] args) {
+        Item monitor = new Item("monitor", 1000000, 5);
+        items.add(monitor);
+        Item mouse = new Item("mouse", 100000, 5);
+        items.add(mouse);
+        Item speaker = new Item("speaker", 500000, 5);
+        items.add(speaker);
+        Item headphone = new Item("headphone", 300000, 5);
+        items.add(headphone);
+        Item keyboard = new Item("keyboard", 400000, 5);
+        items.add(keyboard);
+        Item webcam = new Item("webcam", 200000, 5);
+        items.add(webcam);
+        Item cpu = new Item("cpu", 2000000, 5);
+        items.add(cpu);
         runthis();
+
     }
 
     static void runthis() {
-        Item monitor = new Item("monitor", 1000.000, 5);
-        items.add(monitor);
-        Item mouse = new Item("mouse", 100.000, 5);
-        items.add(mouse);
-        Item speaker = new Item("speaker", 500.000, 5);
-        items.add(speaker);
-        Item headphone = new Item("headphone", 300.000, 5);
-        items.add(headphone);
-        Item keyboard = new Item("keyboard", 400.000, 5);
-        items.add(keyboard);
-        Item webcam = new Item("webcam", 200.000, 5);
-        items.add(webcam);
-        Item cpu = new Item("cpu", 2000.000, 5);
-        items.add(cpu);
-
         mainmenu();
 
     }
@@ -135,10 +135,9 @@ public class kel7 {
         System.out.println("1.Tambah Stock");
         System.out.println("2.Kurang Stock");
         System.out.println("3.view Stock");
-        System.out.println("4.Ganti Password");
-        System.out.println("5.View Username Terdaftar");
-        System.out.println("6.Report Penjualan");
-        System.out.println("7.Logout");
+        System.out.println("4.View Username Terdaftar");
+        System.out.println("5.Report Penjualan");
+        System.out.println("6.Logout");
         System.out.print("Pilihan: ");
         int Pil = inp.nextInt();
 
@@ -170,86 +169,84 @@ public class kel7 {
 
     static void addStock() {
         int pil;
-        do {
-            System.out.println("---------------------");
-            System.out.println("Menu Tambah Stok");
-            System.out.println("1.Monitor");
-            System.out.println("2.Mouse");
-            System.out.println("3.Speaker");
-            System.out.println("4.Headphone");
-            System.out.println("5.Keyboard");
-            System.out.println("6.Webcam");
-            System.out.println("7.CPU");
-            System.out.println("8.Kembali");
-            System.out.print("Pilihan: ");
-            pil = inp.nextInt();
-
-            switch (pil) {
-                case 1:
-                    System.out.println("Tambah Stok Monitor");
-                    System.out.println("Pilih Jumlah : ");
-                    int jumlah = inp.nextInt();
-                    asd.tambahStok(jumlah);
-                    break;
-                // case 2:
-                // keranjang();
-                // break;
-                // case 3:
-                // histori();
-                // break;
-                // case 4:
-                // gantiPass();
-                // break;
-                // case 5:
-                // logout();
-                // break;
-                // default:
-                // break;
+        System.out.println("---------------------");
+        System.out.println("Menu Tambah Stok");
+        System.out.println("1.Monitor");
+        System.out.println("2.Mouse");
+        System.out.println("3.Speaker");
+        System.out.println("4.Headphone");
+        System.out.println("5.Keyboard");
+        System.out.println("6.Webcam");
+        System.out.println("7.CPU");
+        System.out.println("8.Kembali");
+        System.out.print("Pilihan: ");
+        pil = inp.nextInt();
+        if (pil == 8) {
+            menuAdmin();
+        } else {
+            pil = pil - 1;
+            System.out.println("Tambah Stok");
+            System.out.println("Pilih Jumlah : ");
+            int jumlah = inp.nextInt();
+            items.get(pil).setstok(items.get(pil).getstok() + jumlah);
+            for (Item cari : items) {
+                System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga : " + cari.getHarga());
             }
-
-        } while (pil < 6 && pil != 5);
+            addStock();
+        }
     }
 
     static void KurangStok() {
         int pil;
-        do {
-            System.out.println("---------------------");
-            System.out.println("Menu Kurangi Stok");
-            System.out.println("1.Monitor");
-            System.out.println("2.Mouse");
-            System.out.println("3.Speaker");
-            System.out.println("4.Headphone");
-            System.out.println("5.Keyboard");
-            System.out.println("6.Webcam");
-            System.out.println("7.CPU");
-            System.out.println("8.Kembali");
-            System.out.print("Pilihan: ");
-            pil = inp.nextInt();
-
-            switch (pil) {
-                case 1:
-                    System.out.println("Kurang Stok Monitor");
-                    System.out.println("Pilih Jumlah : ");
-                    int jumlah = inp.nextInt();
-                    asd.kurangStok(jumlah);
-                    break;
-                // case 2:
-                // keranjang();
-                // break;
-                // case 3:
-                // histori();
-                // break;
-                // case 4:
-                // gantiPass();
-                // break;
-                // case 5:
-                // logout();
-                // break;
-                // default:
-                // break;
+        System.out.println("---------------------");
+        System.out.println("Menu Kurang Stok");
+        System.out.println("1.Monitor");
+        System.out.println("2.Mouse");
+        System.out.println("3.Speaker");
+        System.out.println("4.Headphone");
+        System.out.println("5.Keyboard");
+        System.out.println("6.Webcam");
+        System.out.println("7.CPU");
+        System.out.println("8.Kembali");
+        System.out.print("Pilihan: ");
+        pil = inp.nextInt();
+        if (pil == 8) {
+            menuAdmin();
+        } else {
+            pil = pil - 1;
+            System.out.println("Kurang Stok");
+            System.out.println("Pilih Jumlah : ");
+            int jumlah = inp.nextInt();
+            items.get(pil).setstok(items.get(pil).getstok() - jumlah);
+            for (Item cari : items) {
+                System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga : " + cari.getHarga());
             }
+            KurangStok();
+        }
+    }
 
-        } while (pil < 6 && pil != 5);
+    static void viewStok() {
+        System.out.println("---------------------");
+        System.out.println("Stok Barang Saat Ini : ");
+        for (Item cari : items) {
+            System.out.println(cari.getNama() + " Stok  : " + cari.getstok() + " Harga : " + cari.getHarga());
+        }
+    }
+
+    public void viewAllUser() {
+        System.out.println("---------------------");
+        System.out.println("User Yang Terdaftar : ");
+        for (User cari : users) {
+            System.out.println(cari.getusername());
+        }
+    }
+
+    public void sellReport() {
+
+    }
+
+    public void logoutadm() {
+
     }
 
     void menuCustomer() {
@@ -295,60 +292,74 @@ public class kel7 {
         System.out.println("1.Tambah Keranjang");
         System.out.println("2.Kurangi keranjang");
         System.out.print("Pilihan: ");
-        String Pilihan = inp.nextLine();
+        int Pilihan = inp.nextInt();
 
         switch (Pilihan) {
-            case "1":
+            case 1:
                 System.out.println("List Barang Toko Rawr");
                 for (Item cari : items) {
-                    System.out.println(cari.getNama() + " " + cari.getstok() + " " + cari.getHarga());
+                    System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga : " + cari.getHarga());
                 }
                 System.out.print("Barang yang ingin di beli: ");
                 String brg = inp.next();
                 System.out.print("Jumlah Barang: ");
                 int jmlbrg = inp.nextInt();
-
                 for (Item cari : items) {
-                    if (cari.getNama().equals(brg)) {
+                    if (cari.getNama().equalsIgnoreCase(brg)) {
                         if (cari.getstok() >= jmlbrg) {
                             Pembayaran barubayar = new Pembayaran(brg, jmlbrg, cari.getHarga());
                             bayaran.add(barubayar);
                             System.out.println("Ditambahkan ke Pembayaran");
-                        } else {
+                            break;
+                        } else if (cari.getstok() < jmlbrg) {
                             System.out.println("stok tidak cukup");
+                        } else {
+                            System.out.println("Barang Tidak Ada");
                         }
                     }
                 }
                 break;
 
-            case "2":
-                System.out.println("List Barang Toko Rawr");
-                for (Item cari : items) {
-                    System.out.println(cari.getNama() );
+            case 2:
+                System.out.println("List Barang Di Keranjang");
+                for (Pembayaran cari : bayaran) {
+                    System.out.println(cari.getnama());
                 }
                 System.out.print("Barang yang ingin di kurangi: ");
                 String krg = inp.next();
+                remove(bayaran, krg);
+                // ERROR
 
-                for (Pembayaran cari : bayaran) {
-                    if (cari.getNama().equals(krg)) {
-                        cari.remove();
-                        System.out.println("Pesanan Telah Dihapus");
-                    }
-                }
                 break;
-
             default:
-            System.out.println("pilihan tidak tersedia");
+                System.out.println("pilihan tidak tersedia");
                 break;
         }
 
+    }
+
+    static void remove(ArrayList<Pembayaran> bayaran, String krg) {
+        for (int i = 0; i < bayaran.size(); i++) {
+            Pembayaran temp = bayaran.get(i);
+            if (temp.getnama().equals(krg)) {
+                // temp.remove(i);
+                bayaran.remove(i);
+                i--;
+                // for (int i = bayaran.size() - 1; i >= 0; i--) {
+                // if (bayaran.get(i).equals(krg)) {
+                // bayaran.remove(i); // Safely remove the item
+                // System.out.println("Pesanan Telah Dihapus");
+                // }
+                // }
+            }
+        }
     }
 
     public void pembayaran() {
 
         if (bayaran.isEmpty()) {
             System.out.println("Belum ada barang yang di masukkan ke keranjang");
-        }else{
+        } else {
             int total = 0;
             for (Pembayaran cari : bayaran) {
                 System.out.println(cari.getnama() + " " + cari.getjumlah());
@@ -386,26 +397,6 @@ public class kel7 {
     public void logout() {
         mainmenu();
     }
-
-    public void viewStokAdv() {
-
-    }
-
-    public void gantiPassAdm() {
-
-    }
-
-    public void viewAllUser() {
-
-    }
-
-    public void sellReport() {
-
-    }
-
-    public void logoutadm() {
-
-    }
 }
 
 class User {
@@ -441,7 +432,7 @@ class Item {
     double harga;
     int stok;
 
-    Item(String nama, double harga, int stok) {
+    public Item(String nama, double harga, int stok) {
         this.nama = nama;
         this.harga = harga;
         this.stok = stok;
@@ -470,35 +461,6 @@ class Item {
     public int getstok() {
         return stok;
     }
-
-    public void tambahStok(int jumlah) {
-        if (jumlah >= 0) {
-            stok += jumlah;
-            System.out.println("Stok " + nama + " ditambahkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
-        } else {
-            System.out.println("Jumlah tambahan stok harus non-negatif.");
-        }
-    }
-
-    public void kurangStok(int jumlah) {
-        if (jumlah >= 0 && stok >= jumlah) {
-            stok -= jumlah;
-            System.out.println("Stok " + nama + " dikurangkan sebanyak " + jumlah + ". Stok sekarang: " + stok);
-        } else if (jumlah < 0) {
-            System.out.println("Jumlah pengurangan stok harus non-negatif.");
-        } else {
-            System.out.println("Stok tidak mencukupi untuk pengurangan sebanyak " + jumlah + ".");
-        }
-    }
-
-    public void viewStok() {
-        System.out.println("Stok " + nama + ": " + stok);
-    }
-
-    public double getTotalharga(int jumlah) {
-        return jumlah * harga;
-    }
-
 }
 
 class Pembayaran {
@@ -514,6 +476,11 @@ class Pembayaran {
         this.harga = harga;
     }
 
+    // BAWAH INI KODINGAN OP COK BGST GAADA ISINYA BISA NGILANGIN OBJEK DI ARRAY
+    // GATAU GMN CARANYA
+    public void remove(int i) {
+    }
+
     public String getnama() {
         return nama;
     }
@@ -527,6 +494,7 @@ class Pembayaran {
     }
 
     void pengkosongan() {
+        // <Pembayaran> bayaran = new ArrayList<>();
         nama = "belum terisi";
         jumlah = 0;
         harga = 0;
