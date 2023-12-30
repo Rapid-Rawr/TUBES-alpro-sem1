@@ -298,36 +298,60 @@ public class kel7 {
             case 1:
                 System.out.println("List Barang Toko Rawr");
                 for (Item cari : items) {
-                    System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga : " + cari.getHarga());
+                    System.out.println(cari.getNama() + "\nStok : " + cari.getstok() + " Rp." + cari.getHarga());
                 }
                 System.out.print("Barang yang ingin di beli: ");
                 String brg = inp.next();
                 System.out.print("Jumlah Barang: ");
                 int jmlbrg = inp.nextInt();
-                for (Item cari : items) {
-                    if (cari.getNama().equalsIgnoreCase(brg)) {
-                        if (cari.getstok() >= jmlbrg) {
-                            Pembayaran barubayar = new Pembayaran(brg, jmlbrg, cari.getHarga());
-                            bayaran.add(barubayar);
-                            System.out.println("Ditambahkan ke Pembayaran");
-                            break;
-                        } else if (cari.getstok() < jmlbrg) {
-                            System.out.println("stok tidak cukup");
-                        } else {
-                            System.out.println("Barang Tidak Ada");
+                boolean cek=true;
+                clearConsole();
+
+                for (Pembayaran carikategori : bayaran) {
+                    if (carikategori.getnama().equals(brg)) {
+                        cek = false;
+                        for (Item cari : items) {
+                            if (cari.getNama().equals(brg)) {
+                                if (cari.getstok() < jmlbrg + carikategori.getjumlah()) {
+                                    System.out.println("stok tidak cukup");
+                                } else {
+                                    int temp = carikategori.getjumlah() + jmlbrg;
+                                    carikategori.setjumlah(temp);
+                                }
+                            }
                         }
                     }
                 }
+                if (cek ) {
+                    for (Item cari : items) {
+                        if (cari.getNama().equalsIgnoreCase(brg)) {
+                            if (cari.getstok() >= jmlbrg) {
+                                Pembayaran barubayar = new Pembayaran(brg, jmlbrg, cari.getHarga());
+                                bayaran.add(barubayar);
+                                System.out.println("Ditambahkan ke keranjang");
+                                break;
+                            } else if (cari.getstok() < jmlbrg) {
+                                System.out.println("stok tidak cukup");
+                            } else {
+                                System.out.println("Barang Tidak Ada");
+                            }
+                        }
+                    }
+                }
+
                 break;
 
             case 2:
                 System.out.println("List Barang Di Keranjang");
                 for (Pembayaran cari : bayaran) {
-                    System.out.println(cari.getnama());
+                    System.out.println(cari.getnama() + " " + cari.getjumlah());
                 }
                 System.out.print("Barang yang ingin di kurangi: ");
-                String krg = inp.next();
-                remove(bayaran, krg);
+                String namakrg = inp.next();
+                System.out.print("Jumlah Pengurangan: ");
+                int jmlkrg = inp.nextInt();
+                hapus(namakrg, jmlkrg);
+                clearConsole();
                 // ERROR
 
                 break;
@@ -338,20 +362,28 @@ public class kel7 {
 
     }
 
-    static void remove(ArrayList<Pembayaran> bayaran, String krg) {
-        for (int i = 0; i < bayaran.size(); i++) {
-            Pembayaran temp = bayaran.get(i);
-            if (temp.getnama().equals(krg)) {
-                // temp.remove(i);
-                bayaran.remove(i);
-                i--;
-                // for (int i = bayaran.size() - 1; i >= 0; i--) {
-                // if (bayaran.get(i).equals(krg)) {
-                // bayaran.remove(i); // Safely remove the item
-                // System.out.println("Pesanan Telah Dihapus");
-                // }
-                // }
+    static void hapus(String barang, int jumlah) {
+        System.out.println("rr");
+        boolean tr=true;
+        for (Pembayaran cari : bayaran) {
+            if (cari.getnama().equals(barang)) {
+                tr = false;
+                for (Item carijml : items) {
+                    if (carijml.getstok() < jumlah + cari.getjumlah()) {
+                        System.out.println("stok tidak cukup");
+                    } else {
+                        int temp = cari.getjumlah() - jumlah;
+                        cari.setjumlah(temp);
+                    }
+                }
+                System.out.println("Barang anda sekarang: ");
+                for (Pembayaran krnj : bayaran) {
+                    System.out.println(krnj.getnama() + " " + krnj.getjumlah());
+                }
             }
+        }
+        if (tr) {
+            System.out.println("barang tidak di temukan");
         }
     }
 
@@ -476,9 +508,8 @@ class Pembayaran {
         this.harga = harga;
     }
 
-    // BAWAH INI KODINGAN OP COK BGST GAADA ISINYA BISA NGILANGIN OBJEK DI ARRAY
-    // GATAU GMN CARANYA
-    public void remove(int i) {
+    public void setjumlah(int tambahan) {
+        jumlah = tambahan;
     }
 
     public String getnama() {
