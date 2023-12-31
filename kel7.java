@@ -304,7 +304,7 @@ public class kel7 {
                 String brg = inp.next();
                 System.out.print("Jumlah Barang: ");
                 int jmlbrg = inp.nextInt();
-                boolean cek=true;
+                boolean cek = true;
                 clearConsole();
 
                 for (Pembayaran carikategori : bayaran) {
@@ -322,7 +322,7 @@ public class kel7 {
                         }
                     }
                 }
-                if (cek ) {
+                if (cek) {
                     for (Item cari : items) {
                         if (cari.getNama().equalsIgnoreCase(brg)) {
                             if (cari.getstok() >= jmlbrg) {
@@ -350,8 +350,9 @@ public class kel7 {
                 String namakrg = inp.next();
                 System.out.print("Jumlah Pengurangan: ");
                 int jmlkrg = inp.nextInt();
-                hapus(namakrg, jmlkrg);
+                // hapus(namakrg, jmlkrg);
                 clearConsole();
+                hapus(namakrg, jmlkrg);
                 // ERROR
 
                 break;
@@ -363,17 +364,18 @@ public class kel7 {
     }
 
     static void hapus(String barang, int jumlah) {
-        System.out.println("rr");
-        boolean tr=true;
+        boolean tr = true;
         for (Pembayaran cari : bayaran) {
             if (cari.getnama().equals(barang)) {
                 tr = false;
                 for (Item carijml : items) {
-                    if (carijml.getstok() < jumlah + cari.getjumlah()) {
-                        System.out.println("stok tidak cukup");
-                    } else {
-                        int temp = cari.getjumlah() - jumlah;
-                        cari.setjumlah(temp);
+                    if (carijml.getNama().equals(barang)) {
+                        if (carijml.getstok() <  cari.getjumlah()-jumlah) {
+                            System.out.println("stok tidak cukup");
+                        } else {
+                            int temp = cari.getjumlah() - jumlah;
+                            cari.setjumlah(temp);
+                        }
                     }
                 }
                 System.out.println("Barang anda sekarang: ");
@@ -399,6 +401,29 @@ public class kel7 {
                 total += cari.getharga() * cari.getjumlah();
             }
             System.out.println("Total Harga: Rp." + total);
+
+            System.out.println("1.Bayar");
+            System.out.println("2.Batalkan");
+            System.out.print("Pilihan: ");
+            int pil = inp.nextInt();
+
+            sistembayar(pil,total);
+        }
+    }
+
+    public void sistembayar (int pilihan,int total){
+        switch (pilihan) {
+            case 1:
+
+                bayaran.clear();
+                break;
+
+            case 2:
+                System.out.println("Membatalkan Pembayaran");
+                break;
+        
+            default:
+                break;
         }
     }
 
@@ -535,13 +560,17 @@ class Pembayaran {
 class Transaksi {
 
     String tanggal;
+    String namabrg ;
+    int jumlah;
     double totalBayar;
-    String status;
+    // String status;
 
-    Transaksi(String tanggal, double totalBayar, String status) {
+    Transaksi(tring tanggal, String namabrg,int jumlah,double totalBayar) {
 
+        this.namabrg=namabrg;
         this.tanggal = tanggal;
         this.totalBayar = totalBayar;
-        this.status = status;
+        this.jumlah=jumlah;
+        // this.status = status;
     }
 }
