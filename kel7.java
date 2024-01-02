@@ -147,7 +147,8 @@ public class kel7 {
         System.out.println("3.view Stock");
         System.out.println("4.View Username Terdaftar");
         System.out.println("5.Report Penjualan");
-        System.out.println("6.Logout");
+        System.out.println("6.Ganti Password dan Username");
+        System.out.println("7.Logout");
         System.out.print("Pilihan: ");
         int Pil = inp.nextInt();
         clearConsole();
@@ -169,11 +170,24 @@ public class kel7 {
                 sellReport();
                 break;
             case 6:
+
+                break;
+            case 7:
                 mainmenu();
                 break;
             default:
                 break;
         }
+    }
+
+    static void gantipassadm(){
+        System.out.print("Username Baru: ");
+        String newusname= inp.nextLine();
+        System.out.print("Password Baru: ");
+        String newpass = inp.nextLine();
+
+        nameadmin=newusname;
+        pwadmin = newpass;
     }
 
     static void addStock() {
