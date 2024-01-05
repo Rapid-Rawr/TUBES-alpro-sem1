@@ -1,6 +1,4 @@
-package Tubes.v1.v2.v3;
-
-// package Tubes.v1.v2;
+package Tubes;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -193,7 +191,6 @@ public class kel7 {
         System.out.print("Input Harga : ");
         double hargaBrgBaru = inp.nextInt();
         items.add(new Item(brgBaru, hargaBrgBaru, stokBaru));
-        System.out.println("Barang Sudah Ditambahkan");
         menuAdmin();
     }
 
@@ -211,19 +208,17 @@ public class kel7 {
 
     static void addStock() {
         int pil;
+        int i = 0;
         System.out.println("---------------------");
-        System.out.println("Menu Tambah Stok");
-        System.out.println("1.Monitor");
-        System.out.println("2.Mouse");
-        System.out.println("3.Speaker");
-        System.out.println("4.Headphone");
-        System.out.println("5.Keyboard");
-        System.out.println("6.Webcam");
-        System.out.println("7.CPU");
-        System.out.println("8.Kembali");
+        System.out.println("Menu Tambah Stok : ");
+        for (Item cari : items) {
+            i++;
+            System.out.println(i + "." + cari.getNama() +" Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
+        }
+        System.out.println("Exit [0]");
         System.out.print("Pilihan: ");
         pil = inp.nextInt();
-        if (pil == 8) {
+        if (pil == 0) {
             menuAdmin();
         } else {
             pil = pil - 1;
@@ -235,26 +230,24 @@ public class kel7 {
             System.out.println("List Stok Terbaru");
             for (Item cari : items) {
                 System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga Rp." + cari.getHarga());
+                addStock();
             }
-            addStock();
         }
     }
 
     static void KurangStok() {
         int pil;
+        int i = 0;
         System.out.println("---------------------");
-        System.out.println("Menu Kurang Stok");
-        System.out.println("1.Monitor");
-        System.out.println("2.Mouse");
-        System.out.println("3.Speaker");
-        System.out.println("4.Headphone");
-        System.out.println("5.Keyboard");
-        System.out.println("6.Webcam");
-        System.out.println("7.CPU");
-        System.out.println("8.Kembali");
+        System.out.println("Menu Kurang Stok : ");
+        for (Item cari : items) {
+            i++;
+            System.out.println(i + "." + cari.getNama() +" Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
+        }
+        System.out.println("Exit [0]");
         System.out.print("Pilihan: ");
         pil = inp.nextInt();
-        if (pil == 8) {
+        if (pil == 0) {
             menuAdmin();
         } else {
             pil = pil - 1;
