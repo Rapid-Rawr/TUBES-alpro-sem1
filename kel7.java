@@ -3,8 +3,8 @@ package Tubes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class kel7 {
-    static kel7 rawr = new kel7();
+public class tubes {
+    static tubes rawr = new tubes();
     static Scanner inp = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
     static ArrayList<Item> items = new ArrayList<>();
@@ -41,6 +41,7 @@ public class kel7 {
     static void mainmenu() {
         int pil;
         while (true) {
+            System.out.println("Selamat Datang Di Toko RAWRRR!");
             System.out.println("---------------------");
             System.out.println("1.Login");
             System.out.println("2.Register");
@@ -58,17 +59,17 @@ public class kel7 {
                     registrasi();
                     break;
 
-                case 3 : 
-                System.out.println("Terima kasih!");
-                System.exit(0);
-                break;
+                case 3:
+                    System.out.println("Terima kasih!");
+                    System.exit(0);
+                    break;
 
                 default:
                     System.out.println("Pilihan Tidak Tersedia");
                     break;
             }
 
-        } 
+        }
     }
 
     public static void clearConsole() {
@@ -87,9 +88,11 @@ public class kel7 {
     }
 
     static void login() {
+        System.out.println("Silahkan Masukkan Akun Anda");
         System.out.println("---------------------");
         System.out.print("Masukkan Username : ");
         String USname = inp.next();
+        System.out.println("---------------------");
         System.out.print("Masukkan Password : ");
         String Pass = inp.next();
 
@@ -114,9 +117,10 @@ public class kel7 {
     }
 
     static void registrasi() {
-        System.out.println("---------------------");
+        System.out.println("===Daftarkan Akun Anda!===");
         System.out.print("Masukkan Username : ");
         String USname = inp.next();
+        System.out.println("--------------------------");
         System.out.print("Masukkan Password : ");
         String Pass = inp.next();
 
@@ -138,8 +142,9 @@ public class kel7 {
     }
 
     static void menuAdmin() {
-        System.out.println("---------------------");
+        System.out.println("=====================");
         System.out.println("Welcome, Admin!");
+        System.out.println("=====================");
         System.out.println("1.Tambah Stock");
         System.out.println("2.Tambah Barang");
         System.out.println("3.Kurang Stock");
@@ -148,6 +153,7 @@ public class kel7 {
         System.out.println("6.Report Penjualan");
         System.out.println("7.Ganti Password dan Username");
         System.out.println("8.Logout");
+        System.out.println("---------------------");
         System.out.print("Pilihan: ");
         int Pil = inp.nextInt();
         clearConsole();
@@ -182,7 +188,7 @@ public class kel7 {
         }
     }
 
-    static void addbarang(){
+    static void addbarang() {
         System.out.println("Menu Tambah Barang Baru");
         System.out.print("Nama Barang : ");
         String brgBaru = inp.next();
@@ -194,14 +200,14 @@ public class kel7 {
         menuAdmin();
     }
 
-    static void gantipassadm(){
+    static void gantipassadm() {
         System.out.print("Username Baru: ");
-        String newusname= inp.nextLine();
+        String newusname = inp.next();
         System.out.print("Password Baru: ");
-        String newpass = inp.nextLine();
+        String newpass = inp.next();
         System.out.println("Password Berhasil Diganti");
 
-        nameadmin=newusname;
+        nameadmin = newusname;
         pwadmin = newpass;
         menuAdmin();
     }
@@ -213,7 +219,8 @@ public class kel7 {
         System.out.println("Menu Tambah Stok : ");
         for (Item cari : items) {
             i++;
-            System.out.println(i + "." + cari.getNama() +" Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
+            System.out
+                    .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
         }
         System.out.println("Exit [0]");
         System.out.print("Pilihan: ");
@@ -242,7 +249,8 @@ public class kel7 {
         System.out.println("Menu Kurang Stok : ");
         for (Item cari : items) {
             i++;
-            System.out.println(i + "." + cari.getNama() +" Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
+            System.out
+                    .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
         }
         System.out.println("Exit [0]");
         System.out.print("Pilihan: ");
@@ -279,8 +287,8 @@ public class kel7 {
             System.out.println("User Yang Terdaftar : ");
             int temp = 0;
             for (User cari : users) {
-                temp+=1;
-                System.out.println(temp+cari.getusername());
+                temp += 1;
+                System.out.println(temp + ". " + cari.getusername());
             }
 
         }
@@ -311,16 +319,17 @@ public class kel7 {
     void menuCustomer() {
         int pil;
         do {
-            System.out.println("---------------------");
+            System.out.println("=====================");
             System.out.println("Welcome, Customer!");
+            System.out.println("=====================");
             System.out.println("1.Keranjang");
             System.out.println("2.Pembayaran");
             System.out.println("3.Histori Pembelian");
             System.out.println("4.Ganti Password");
             System.out.println("5.Logout");
+            System.out.println("---------------------");
             System.out.print("Pilihan: ");
             pil = inp.nextInt();
-            System.out.println("---------------------");
 
             clearConsole();
 
