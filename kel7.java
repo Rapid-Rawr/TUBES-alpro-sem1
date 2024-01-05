@@ -1,4 +1,4 @@
-package Tubes;
+package Tubes.v1.v2.v3;
 
 // package Tubes.v1.v2;
 
@@ -143,12 +143,13 @@ public class kel7 {
         System.out.println("---------------------");
         System.out.println("Welcome, Admin!");
         System.out.println("1.Tambah Stock");
-        System.out.println("2.Kurang Stock");
-        System.out.println("3.view Stock");
-        System.out.println("4.View Username Terdaftar");
-        System.out.println("5.Report Penjualan");
-        System.out.println("6.Ganti Password dan Username");
-        System.out.println("7.Logout");
+        System.out.println("2.Tambah Barang");
+        System.out.println("3.Kurang Stock");
+        System.out.println("4.view Stock");
+        System.out.println("5.View Username Terdaftar");
+        System.out.println("6.Report Penjualan");
+        System.out.println("7.Ganti Password dan Username");
+        System.out.println("8.Logout");
         System.out.print("Pilihan: ");
         int Pil = inp.nextInt();
         clearConsole();
@@ -158,21 +159,24 @@ public class kel7 {
                 addStock();
                 break;
             case 2:
-                KurangStok();
+                addbarang();
                 break;
             case 3:
-                viewStok();
+                KurangStok();
                 break;
             case 4:
-                viewAllUser();
+                viewStok();
                 break;
             case 5:
-                sellReport();
+                viewAllUser();
                 break;
             case 6:
-
+                sellReport();
                 break;
             case 7:
+                gantipassadm();
+                break;
+            case 8:
                 mainmenu();
                 break;
             default:
@@ -180,14 +184,29 @@ public class kel7 {
         }
     }
 
+    static void addbarang(){
+        System.out.println("Menu Tambah Barang Baru");
+        System.out.print("Nama Barang : ");
+        String brgBaru = inp.next();
+        System.out.print("Input Stok : ");
+        int stokBaru = inp.nextInt();
+        System.out.print("Input Harga : ");
+        double hargaBrgBaru = inp.nextInt();
+        items.add(new Item(brgBaru, hargaBrgBaru, stokBaru));
+        System.out.println("Barang Sudah Ditambahkan");
+        menuAdmin();
+    }
+
     static void gantipassadm(){
         System.out.print("Username Baru: ");
         String newusname= inp.nextLine();
         System.out.print("Password Baru: ");
         String newpass = inp.nextLine();
+        System.out.println("Password Berhasil Diganti");
 
         nameadmin=newusname;
         pwadmin = newpass;
+        menuAdmin();
     }
 
     static void addStock() {
