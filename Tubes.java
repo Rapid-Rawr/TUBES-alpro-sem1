@@ -3,8 +3,8 @@ package Tubes;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class tubes {
-    static tubes rawr = new tubes();
+public class Tubes {
+    static Tubes rawr = new Tubes();
     static Scanner inp = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
     static ArrayList<Item> items = new ArrayList<>();
@@ -368,69 +368,11 @@ public class tubes {
 
         switch (Pilihan) {
             case 1:
-                System.out.println("List Barang Toko Rawr");
-                System.out.println("---------------------");
-                for (Item cari : items) {
-                    System.out.println(cari.getNama() + "\nStok : " + cari.getstok() + " Rp." + cari.getHarga());
-                }
-                System.out.print("Barang yang ingin di beli: ");
-                String brg = inp.next();
-                System.out.print("Jumlah Barang: ");
-                int jmlbrg = inp.nextInt();
-                boolean cek = true;
-                clearConsole();
-
-                for (Pembayaran carikategori : bayaran) {
-                    if (carikategori.getnama().equals(brg)) {
-                        cek = false;
-                        for (Item cari : items) {
-                            if (cari.getNama().equals(brg)) {
-                                if (cari.getstok() < jmlbrg + carikategori.getjumlah()) {
-                                    System.out.println("stok tidak cukup");
-                                } else {
-                                    int temp = carikategori.getjumlah() + jmlbrg;
-                                    carikategori.setjumlah(temp);
-                                    System.out.println("Barang Ditambahkan ke Keranjang");
-                                }
-                            }
-                        }
-                    }
-                }
-                if (cek) {
-                    for (Item cari : items) {
-                        if (cari.getNama().equalsIgnoreCase(brg)) {
-                            if (cari.getstok() >= jmlbrg) {
-                                Pembayaran barubayar = new Pembayaran(brg, jmlbrg, cari.getHarga());
-                                bayaran.add(barubayar);
-                                System.out.println("Ditambahkan ke keranjang");
-                                break;
-                            } else if (cari.getstok() < jmlbrg) {
-                                System.out.println("stok tidak cukup");
-                            } else {
-                                System.out.println("Barang Tidak Ada");
-                            }
-                        }
-                    }
-                }
+                tambahcstm();
                 break;
 
             case 2:
-                System.out.println("List Barang Di Keranjang");
-                System.out.println("---------------------");
-                for (Pembayaran cari : bayaran) {
-                    System.out.println(cari.getnama() + " " + cari.getjumlah());
-                }
-                if (bayaran.isEmpty()) {
-                    System.out.println("Belum Ada Barang Yang Di Masukkan Ke Keranjang");
-                }
-                System.out.println("---------------------");
-                System.out.print("Barang yang ingin di kurangi: ");
-                String namakrg = inp.next();
-                System.out.print("Jumlah Pengurangan: ");
-                int jmlkrg = inp.nextInt();
-                System.out.println("---------------------");
-                clearConsole();
-                hapus(namakrg, jmlkrg);
+                kurangcstm();
                 break;
 
             case 3:
@@ -441,11 +383,86 @@ public class tubes {
         }
     }
 
-    static void hapus(String barang, int jumlah) {
+    public void tambahcstm() {
+        System.out.println("List Barang Toko Rawr");
+        System.out.println("---------------------");
+        int temp=0;
+        for (Item cari : items) {
+            temp+=1;
+            System.out.println(temp+". "+cari.getNama() + "\nStok : " + cari.getstok() + " Rp." + cari.getHarga());
+        }
+        System.out.print("Barang yang ingin di beli: ");
+        int brg = inp.nextInt();
+        System.out.print("Jumlah Barang: ");
+        int jmlbrg = inp.nextInt();
+        boolean cek = true;
+        clearConsole();
+
+
+        for (Pembayaran carikategori : bayaran) {
+            if (carikategori.getnama().equals(bayaran.get(brg-1).getnama())) {
+                cek = false;
+                for (Item cari : items) {
+                    if (cari.getNama().equals(bayaran.get(brg-1).getnama())) {
+                        if (bayaran.get(brg-1).getjumlah() < jmlbrg + carikategori.getjumlah()) {
+                            System.out.println("stok tidak cukup");
+                            break;
+                        } else {
+                            int tempo = carikategori.getjumlah() + jmlbrg;
+                            carikategori.setjumlah(tempo);
+                            System.out.println("Barang Ditambahkan ke Keranjang");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (cek) {
+            for (Item cari : items) {
+                if (items.get(brg-1).getNama().equals(cari.getNama())); {
+                    if (items.get(brg-1).getstok() >= jmlbrg) {
+                        Pembayaran barubayar = new Pembayaran(items.get(brg-1).getNama(), jmlbrg, cari.getHarga());
+                        bayaran.add(barubayar);
+                        System.out.println("Ditambahkan ke keranjang");
+                        break;
+                    } else if (items.get(brg-1).getstok() < jmlbrg) {
+                        System.out.println("stok tidak cukup");
+                        break;
+                    } else {
+                        System.out.println("Barang Tidak Ada");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void kurangcstm() {
+        System.out.println("List Barang Di Keranjang");
+        System.out.println("---------------------");
+        int temp=0;
+        for (Pembayaran cari : bayaran) {
+            temp+=1;
+            System.out.println(temp+". "+cari.getnama() + " " + cari.getjumlah());
+        }
+        if (bayaran.isEmpty()) {
+            System.out.println("Belum Ada Barang Yang Di Masukkan Ke Keranjang");
+        }
+        System.out.println("---------------------");
+        System.out.print("Barang yang ingin di kurangi: ");
+        int namakrg = inp.nextInt();
+        System.out.print("Jumlah Pengurangan: ");
+        int jmlkrg = inp.nextInt();
+        System.out.println("---------------------");
+        clearConsole();
+        hapus(namakrg, jmlkrg);
+    }
+
+    static void hapus(int barang, int jumlah) {
 
         boolean tr = true;
         for (Pembayaran cari : bayaran) {
-            if (cari.getnama().equals(barang)) {
+            if (cari.getnama().equals(bayaran.get(barang-1).getnama())) {
                 tr = false;
                 for (Item carijml : items) {
                     if (carijml.getNama().equals(cari.getnama())) {
