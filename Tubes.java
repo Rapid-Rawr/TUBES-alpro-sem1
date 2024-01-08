@@ -13,6 +13,7 @@ public class Tubes {
     static ArrayList<Pembayaran> history = new ArrayList<>();
     static String nameadmin = "admin";
     static String pwadmin = "admin";
+    static String nameuser = "null";
 
     public static void main(String[] args) {
         Item monitor = new Item("monitor", 1000000, 5);
@@ -96,6 +97,8 @@ public class Tubes {
         System.out.print("Masukkan Password : ");
         String Pass = inp.next();
 
+        nameuser = USname;
+
         if ((USname.equals(nameadmin)) && (Pass.equals(pwadmin))) {
             menuAdmin();
 
@@ -156,7 +159,7 @@ public class Tubes {
         System.out.println("---------------------");
         System.out.print("Pilihan: ");
         int Pil = inp.nextInt();
-        clearConsole();
+        // clearConsole();
 
         switch (Pil) {
             case 1:
@@ -295,25 +298,20 @@ public class Tubes {
         if (users.isEmpty()) {
             System.out.println("Belum Ada User");
         }
-
         menuAdmin();
     }
 
     static void sellReport() {
         long total = 0;
         System.out.println("---------------------");
-        System.out.println("List Customer : ");
         for (int i = 0; i < adminhistori.size(); i++) {
-            System.out.println("User : " + adminhistori.get(i));
+            System.out.println(adminhistori.get(i));
+            for (Pembayaran cari : history) {
+                if (adminhistori.get(i).equals(cari.getuser())) {
+                    System.out.println( cari.getnama() + " " + cari.getjumlah() + " Rp." + cari.getharga());
+                }
+            }
         }
-        System.out.println("List Barang Terjual : ");
-        for (int i = 0; i < history.size(); i++) {
-            total += history.get(i).getharga() * history.get(i).getjumlah();
-            System.out.println(
-                    history.get(i).getnama() + " " + history.get(i).getjumlah() + " Rp." + history.get(i).getharga());
-        }
-        System.out.println("Total Pendapatan : Rp." + total);
-        menuAdmin();
     }
 
     void menuCustomer() {
@@ -386,10 +384,10 @@ public class Tubes {
     public void tambahcstm() {
         System.out.println("List Barang Toko Rawr");
         System.out.println("---------------------");
-        int temp=0;
+        int temp = 0;
         for (Item cari : items) {
-            temp+=1;
-            System.out.println(temp+". "+cari.getNama() + "\nStok : " + cari.getstok() + " Rp." + cari.getHarga());
+            temp += 1;
+            System.out.println(temp + ". " + cari.getNama() + "\nStok : " + cari.getstok() + " Rp." + cari.getHarga());
         }
         System.out.print("Barang yang ingin di beli: ");
         int brg = inp.nextInt();
@@ -398,34 +396,18 @@ public class Tubes {
         boolean cek = true;
         clearConsole();
 
-
-        for (Pembayaran carikategori : bayaran) {
-            if (carikategori.getnama().equals(bayaran.get(brg-1).getnama())) {
-                cek = false;
-                for (Item cari : items) {
-                    if (cari.getNama().equals(bayaran.get(brg-1).getnama())) {
-                        if (bayaran.get(brg-1).getjumlah() < jmlbrg + carikategori.getjumlah()) {
-                            System.out.println("stok tidak cukup");
-                            break;
-                        } else {
-                            int tempo = carikategori.getjumlah() + jmlbrg;
-                            carikategori.setjumlah(tempo);
-                            System.out.println("Barang Ditambahkan ke Keranjang");
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         if (cek) {
             for (Item cari : items) {
-                if (items.get(brg-1).getNama().equals(cari.getNama())); {
-                    if (items.get(brg-1).getstok() >= jmlbrg) {
-                        Pembayaran barubayar = new Pembayaran(items.get(brg-1).getNama(), jmlbrg, cari.getHarga());
+                if (items.get(brg - 1).getNama().equals(cari.getNama()))
+                    ;
+                {
+                    if (items.get(brg - 1).getstok() >= jmlbrg) {
+                        Pembayaran barubayar = new Pembayaran(nameuser, items.get(brg - 1).getNama(), jmlbrg,
+                                cari.getHarga());
                         bayaran.add(barubayar);
                         System.out.println("Ditambahkan ke keranjang");
                         break;
-                    } else if (items.get(brg-1).getstok() < jmlbrg) {
+                    } else if (items.get(brg - 1).getstok() < jmlbrg) {
                         System.out.println("stok tidak cukup");
                         break;
                     } else {
@@ -440,10 +422,10 @@ public class Tubes {
     public void kurangcstm() {
         System.out.println("List Barang Di Keranjang");
         System.out.println("---------------------");
-        int temp=0;
+        int temp = 0;
         for (Pembayaran cari : bayaran) {
-            temp+=1;
-            System.out.println(temp+". "+cari.getnama() + " " + cari.getjumlah());
+            temp += 1;
+            System.out.println(temp + ". " + cari.getnama() + " " + cari.getjumlah());
         }
         if (bayaran.isEmpty()) {
             System.out.println("Belum Ada Barang Yang Di Masukkan Ke Keranjang");
@@ -462,7 +444,7 @@ public class Tubes {
 
         boolean tr = true;
         for (Pembayaran cari : bayaran) {
-            if (cari.getnama().equals(bayaran.get(barang-1).getnama())) {
+            if (cari.getnama().equals(bayaran.get(barang - 1).getnama())) {
                 tr = false;
                 for (Item carijml : items) {
                     if (carijml.getNama().equals(cari.getnama())) {
@@ -487,13 +469,14 @@ public class Tubes {
     }
 
     public void pembayaran() {
+        System.out.println("ppp");
 
         if (bayaran.isEmpty()) {
             System.out.println("Belum ada barang yang di masukkan ke keranjang");
         } else {
             int total = 0;
             for (Pembayaran cari : bayaran) {
-                System.out.println(cari.getnama() + " " + cari.getjumlah());
+                System.out.println(cari.getuser() + " " + cari.getnama() + " " + cari.getjumlah());
                 System.out.println("Harga Satuan: " + cari.getharga());
                 total += cari.getharga() * cari.getjumlah();
             }
@@ -528,7 +511,8 @@ public class Tubes {
         System.out.println("---------------------");
         System.out.println("History Pembelian");
         for (Pembayaran cari : history) {
-            System.out.println(cari.getnama() + "\nStok : " + cari.getjumlah() + " Rp." + cari.getharga());
+            System.out.println(
+                    cari.getuser() + " " + cari.getnama() + "\nStok : " + cari.getjumlah() + " Rp." + cari.getharga());
             total += cari.getharga() * cari.getjumlah();
         }
         System.out.println("Total Harga: Rp." + total);
@@ -630,12 +614,14 @@ class Item {
 
 class Pembayaran {
 
+    String IDuser;
     String nama;
     int jumlah;
     double harga;
 
-    Pembayaran(String nama, int jumlah, double harga) {
+    Pembayaran(String IDuser, String nama, int jumlah, double harga) {
 
+        this.IDuser = IDuser;
         this.nama = nama;
         this.jumlah = jumlah;
         this.harga = harga;
@@ -643,6 +629,10 @@ class Pembayaran {
 
     public void setjumlah(int tambahan) {
         jumlah = tambahan;
+    }
+
+    public String getuser() {
+        return IDuser;
     }
 
     public String getnama() {
