@@ -127,6 +127,7 @@ public class Tubes {
         System.out.print("Masukkan Password : ");
         String Pass = inp.next();
 
+        clearConsole();
         boolean temp = true;
 
         for (User cari : users) {
@@ -145,49 +146,55 @@ public class Tubes {
     }
 
     static void menuAdmin() {
-        System.out.println("=====================");
-        System.out.println("Welcome, Admin!");
-        System.out.println("=====================");
-        System.out.println("1.Tambah Stock");
-        System.out.println("2.Tambah Barang");
-        System.out.println("3.Kurang Stock");
-        System.out.println("4.view Stock");
-        System.out.println("5.View Username Terdaftar");
-        System.out.println("6.Report Penjualan");
-        System.out.println("7.Ganti Password dan Username");
-        System.out.println("8.Logout");
-        System.out.println("---------------------");
-        System.out.print("Pilihan: ");
-        int Pil = inp.nextInt();
-        // clearConsole();
 
-        switch (Pil) {
-            case 1:
-                addStock();
-                break;
-            case 2:
-                addbarang();
-                break;
-            case 3:
-                KurangStok();
-                break;
-            case 4:
-                viewStok();
-                break;
-            case 5:
-                viewAllUser();
-                break;
-            case 6:
-                sellReport();
-                break;
-            case 7:
-                gantipassadm();
-                break;
-            case 8:
-                mainmenu();
-                break;
-            default:
-                break;
+        boolean jalan = true;
+
+        while (jalan) {
+            System.out.println("=====================");
+            System.out.println("Welcome, Admin!");
+            System.out.println("=====================");
+            System.out.println("1.Tambah Stock");
+            System.out.println("2.Tambah Barang");
+            System.out.println("3.Kurang Stock");
+            System.out.println("4.view Stock");
+            System.out.println("5.View Username Terdaftar");
+            System.out.println("6.Report Penjualan");
+            System.out.println("7.Ganti Password dan Username");
+            System.out.println("8.Logout");
+            System.out.println("---------------------");
+            System.out.print("Pilihan: ");
+            int Pil = inp.nextInt();
+            clearConsole();
+
+            switch (Pil) {
+                case 1:
+                    addStock();
+                    break;
+                case 2:
+                    addbarang();
+                    break;
+                case 3:
+                    KurangStok();
+                    break;
+                case 4:
+                    viewStok();
+                    break;
+                case 5:
+                    viewAllUser();
+                    break;
+                case 6:
+                    sellReport();
+                    break;
+                case 7:
+                    gantipassadm();
+                    break;
+                case 8:
+                    jalan = false;
+                    break;
+                default:
+                    System.out.println("Pilihan Tidak Tersedia");
+                    break;
+            }
         }
     }
 
@@ -200,7 +207,7 @@ public class Tubes {
         System.out.print("Input Harga : ");
         double hargaBrgBaru = inp.nextInt();
         items.add(new Item(brgBaru, hargaBrgBaru, stokBaru));
-        menuAdmin();
+        clearConsole();
     }
 
     static void gantipassadm() {
@@ -212,67 +219,80 @@ public class Tubes {
 
         nameadmin = newusname;
         pwadmin = newpass;
-        menuAdmin();
+        clearConsole();
     }
 
     static void addStock() {
         int pil;
         int i = 0;
-        System.out.println("---------------------");
-        System.out.println("Menu Tambah Stok : ");
-        for (Item cari : items) {
-            i++;
-            System.out
-                    .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
-        }
-        System.out.println("Exit [0]");
-        System.out.print("Pilihan: ");
-        pil = inp.nextInt();
-        if (pil == 0) {
-            menuAdmin();
-        } else {
-            pil = pil - 1;
-            // System.out.println("Tambah Stok");
-            System.out.print("Jumlah Tambah = ");
-            int jumlah = inp.nextInt();
-            clearConsole();
-            items.get(pil).setstok(items.get(pil).getstok() + jumlah);
-            System.out.println("List Stok Terbaru");
+
+        boolean jalan = true;
+
+        while (jalan) {
+            System.out.println("---------------------");
+            System.out.println("Menu Tambah Stok : ");
             for (Item cari : items) {
-                System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga Rp." + cari.getHarga());
-                addStock();
+                i++;
+                System.out
+                        .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : "
+                                + cari.getHarga());
+            }
+            System.out.println("Exit [0]");
+            System.out.print("Pilihan: ");
+            pil = inp.nextInt();
+            clearConsole();
+            if (pil == 0) {
+                jalan = false;
+            } else {
+                pil = pil - 1;
+                // System.out.println("Tambah Stok");
+                System.out.print("Jumlah Tambah = ");
+                int jumlah = inp.nextInt();
+                clearConsole();
+                items.get(pil).setstok(items.get(pil).getstok() + jumlah);
+                System.out.println("List Stok Terbaru");
+                for (Item cari : items) {
+                    System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga Rp." + cari.getHarga());
+                }
             }
         }
+
     }
 
     static void KurangStok() {
-        int pil;
-        int i = 0;
-        System.out.println("---------------------");
-        System.out.println("Menu Kurang Stok : ");
-        for (Item cari : items) {
-            i++;
-            System.out
-                    .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : " + cari.getHarga());
-        }
-        System.out.println("Exit [0]");
-        System.out.print("Pilihan: ");
-        pil = inp.nextInt();
-        if (pil == 0) {
-            menuAdmin();
-        } else {
-            pil = pil - 1;
-            // System.out.println("Kurang Stok");
-            System.out.print("Jumlah Kurang = ");
-            int jumlah = inp.nextInt();
-            clearConsole();
-            System.out.println("List Stok Terbaru");
-            items.get(pil).setstok(items.get(pil).getstok() - jumlah);
+
+        boolean jalan = true;
+        while (jalan) {
+            int pil;
+            int i = 0;
+            System.out.println("---------------------");
+            System.out.println("Menu Kurang Stok : ");
             for (Item cari : items) {
-                System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga Rp." + cari.getHarga());
+                i++;
+                System.out
+                        .println(i + "." + cari.getNama() + " Stok  : " + cari.getstok() + " | Harga : "
+                                + cari.getHarga());
             }
-            KurangStok();
+            System.out.println("Exit [0]");
+            System.out.print("Pilihan: ");
+            pil = inp.nextInt();
+            clearConsole();
+            if (pil == 0) {
+                jalan = false;
+            } else {
+                pil = pil - 1;
+                // System.out.println("Kurang Stok");
+                System.out.print("Jumlah Kurang = ");
+                int jumlah = inp.nextInt();
+                clearConsole();
+                System.out.println("List Stok Terbaru");
+                items.get(pil).setstok(items.get(pil).getstok() - jumlah);
+                for (Item cari : items) {
+                    System.out.println(cari.getNama() + " Stok : " + cari.getstok() + " Harga Rp." + cari.getHarga());
+                }
+            }
         }
+
     }
 
     static void viewStok() {
@@ -281,7 +301,6 @@ public class Tubes {
         for (Item cari : items) {
             System.out.println(cari.getNama() + " Stok  : " + cari.getstok() + " Harga : " + cari.getHarga());
         }
-        menuAdmin();
     }
 
     static void viewAllUser() {
@@ -298,7 +317,6 @@ public class Tubes {
         if (users.isEmpty()) {
             System.out.println("Belum Ada User");
         }
-        menuAdmin();
     }
 
     static void sellReport() {
@@ -308,15 +326,21 @@ public class Tubes {
             System.out.println(adminhistori.get(i));
             for (Pembayaran cari : history) {
                 if (adminhistori.get(i).equals(cari.getuser())) {
-                    System.out.println( cari.getnama() + " " + cari.getjumlah() + " Rp." + cari.getharga());
+                    System.out.println(cari.getnama() + " " + cari.getjumlah() + " Rp." + cari.getharga());
+                    total+=cari.getjumlah()*cari.getharga();
                 }
             }
+        }
+        if (total!=0) {
+            System.out.println("Total Pendapatan= Rp."+total);
         }
     }
 
     void menuCustomer() {
         int pil;
-        do {
+
+        boolean jalan = true;
+        while (jalan) {
             System.out.println("=====================");
             System.out.println("Welcome, Customer!");
             System.out.println("=====================");
@@ -345,39 +369,43 @@ public class Tubes {
                     gantiPass();
                     break;
                 case 5:
-                    logout();
+                    jalan = false;
                     break;
                 default:
                     break;
             }
+        }
 
-        } while (pil < 6 && pil != 5);
     }
 
     public void keranjang() {
 
-        System.out.println("---------------------");
-        System.out.println("1.Tambah Keranjang");
-        System.out.println("2.Kurangi keranjang");
-        System.out.println("3.Kembali");
-        System.out.print("Pilihan: ");
-        int Pilihan = inp.nextInt();
-        clearConsole();
+        boolean jalan = true;
 
-        switch (Pilihan) {
-            case 1:
-                tambahcstm();
-                break;
+        while (jalan) {
+            System.out.println("---------------------");
+            System.out.println("1.Tambah Keranjang");
+            System.out.println("2.Kurangi keranjang");
+            System.out.println("3.Kembali");
+            System.out.print("Pilihan: ");
+            int Pilihan = inp.nextInt();
+            clearConsole();
 
-            case 2:
-                kurangcstm();
-                break;
+            switch (Pilihan) {
+                case 1:
+                    tambahcstm();
+                    break;
 
-            case 3:
-                menuCustomer();
-            default:
-                System.out.println("pilihan tidak tersedia");
-                break;
+                case 2:
+                    kurangcstm();
+                    break;
+
+                case 3:
+                    jalan = false;
+                default:
+                    System.out.println("pilihan tidak tersedia");
+                    break;
+            }
         }
     }
 
@@ -420,24 +448,28 @@ public class Tubes {
     }
 
     public void kurangcstm() {
-        System.out.println("List Barang Di Keranjang");
-        System.out.println("---------------------");
-        int temp = 0;
-        for (Pembayaran cari : bayaran) {
-            temp += 1;
-            System.out.println(temp + ". " + cari.getnama() + " " + cari.getjumlah());
-        }
+
         if (bayaran.isEmpty()) {
             System.out.println("Belum Ada Barang Yang Di Masukkan Ke Keranjang");
+        } else if (!bayaran.isEmpty()) {
+            System.out.println("List Barang Di Keranjang");
+            System.out.println("---------------------");
+            int temp = 0;
+            for (Pembayaran cari : bayaran) {
+                temp += 1;
+                System.out.println(temp + ". " + cari.getnama() + " " + cari.getjumlah());
+            }
+            System.out.println("---------------------");
+            System.out.print("Barang yang ingin di kurangi: ");
+            int namakrg = inp.nextInt();
+            System.out.print("Jumlah Pengurangan: ");
+            int jmlkrg = inp.nextInt();
+            System.out.println("---------------------");
+            clearConsole();
+            hapus(namakrg, jmlkrg);
+            System.out.println("Barang Telah di Kurangi");
         }
-        System.out.println("---------------------");
-        System.out.print("Barang yang ingin di kurangi: ");
-        int namakrg = inp.nextInt();
-        System.out.print("Jumlah Pengurangan: ");
-        int jmlkrg = inp.nextInt();
-        System.out.println("---------------------");
-        clearConsole();
-        hapus(namakrg, jmlkrg);
+
     }
 
     static void hapus(int barang, int jumlah) {
@@ -469,16 +501,18 @@ public class Tubes {
     }
 
     public void pembayaran() {
-        System.out.println("ppp");
 
         if (bayaran.isEmpty()) {
             System.out.println("Belum ada barang yang di masukkan ke keranjang");
         } else {
             int total = 0;
+            System.out.println("Isi Keranjang: ");
             for (Pembayaran cari : bayaran) {
-                System.out.println(cari.getuser() + " " + cari.getnama() + " " + cari.getjumlah());
-                System.out.println("Harga Satuan: " + cari.getharga());
-                total += cari.getharga() * cari.getjumlah();
+                if (cari.getuser().equals(nameuser)) {
+                    System.out.println(cari.getnama() + " " + cari.getjumlah());
+                    System.out.println("Harga Satuan: " + cari.getharga());
+                    total += cari.getharga() * cari.getjumlah();
+                }
             }
             System.out.println("Total Harga: Rp." + total);
             System.out.println("---------------------");
@@ -507,15 +541,23 @@ public class Tubes {
     }
 
     public void histori() {
-        int total = 0;
+
+        long total = 0;
         System.out.println("---------------------");
-        System.out.println("History Pembelian");
+
         for (Pembayaran cari : history) {
-            System.out.println(
-                    cari.getuser() + " " + cari.getnama() + "\nStok : " + cari.getjumlah() + " Rp." + cari.getharga());
-            total += cari.getharga() * cari.getjumlah();
+            if (nameuser.equals(cari.getuser())) {
+                System.out.println(cari.getnama() + " " + cari.getjumlah() + " Rp." + cari.getharga());
+                total += (cari.getjumlah() * cari.getharga());
+            }
         }
-        System.out.println("Total Harga: Rp." + total);
+        if (total!=0) {
+            System.out.println(total);
+        }
+
+        if (total == 0) {
+            System.out.println("Belum ada Pembelian");
+        }
     }
 
     public void gantiPass() {
@@ -543,9 +585,6 @@ public class Tubes {
         }
     }
 
-    public void logout() {
-        mainmenu();
-    }
 }
 
 class User {
